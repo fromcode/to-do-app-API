@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{ .title }}</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ .title }}</h1>
+        <ol>
+            {{range .data}}
+            <li>{{ .Name }} - {{ .Description }}</li> {{end}}
+        </ol>
+        <h2>Tambah Tugas Baru</h2>
+        <form action="/todo/create" method="POST">
+            <input type="text" name="name" placeholder="Nama Tugas..." required>
+            <input type="text" name="description" placeholder="Deskripsi...">
+            <button type="submit">Tambah</button>
+        </form>        
+    </div>
+</body>
+</html>

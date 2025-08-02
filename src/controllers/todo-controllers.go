@@ -64,14 +64,17 @@ func GetAllTodos(context *gin.Context) {
 	//Querying to find todo data
 	err := db.Find(&todos)
 	if err.Error != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "Error getting data"})
+		context.String(http.StatusInternalServerError, "Error getting data %v", err)
+		return
 	}
 
 	// creating GET http response
-	context.JSON(http.StatusOK, gin.H{
-		"status":  "200",
-		"message": "Success",
-		"data":    todos,
+	context.HTML(http.StatusOK, "base.html", gin.H{
+
+		// "status":  "200",
+		// "message": "Success",
+		"title": "all todos list",
+		"data":  todos,
 	})
 }
 

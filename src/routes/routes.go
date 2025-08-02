@@ -5,13 +5,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Routes() {
-	route := gin.Default()
+func Routes(router *gin.Engine) {
 
-	route.POST("/todo", controllers.CreateTodo)
-	route.GET("/todo", controllers.GetAllTodos)
-	route.PUT("/todo/:idTodo", controllers.UpdateTodo)
-	route.DELETE("/todo/:idTodo", controllers.DeleteTodo)
+	router.GET("/", controllers.GetAllTodos)
+	router.GET("/todo", controllers.GetAllTodos)
 
-	route.Run()
+	ApiRoutes := router.Group("/api")
+	{
+		ApiRoutes.POST("/todo/create", controllers.CreateTodo)
+		ApiRoutes.GET("/todo", controllers.GetAllTodos)
+		ApiRoutes.PUT("/todo/:idTodo", controllers.UpdateTodo)
+		ApiRoutes.DELETE("/todo/:idTodo", controllers.DeleteTodo)
+	}
+
+	router.Run()
 }
