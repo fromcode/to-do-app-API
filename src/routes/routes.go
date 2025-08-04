@@ -1,14 +1,19 @@
 package routes
 
 import (
+	"net/http"
+
 	"github.com/fromcode/to-do-app/src/controllers"
 	"github.com/gin-gonic/gin"
 )
 
 func Routes(router *gin.Engine) {
 
-	router.GET("/", controllers.GetAllTodos)
 	router.GET("/todo", controllers.GetAllTodos)
+	router.GET("/todo/create/form", func(context *gin.Context) {
+		context.HTML(http.StatusOK, "create.html", nil)
+	})
+	router.POST("/todo/create", controllers.HandleSubmit)
 
 	ApiRoutes := router.Group("/api")
 	{

@@ -57,6 +57,38 @@ func CreateTodo(context *gin.Context) {
 	context.JSON(http.StatusCreated, response)
 }
 
+// handle create.html untuk tombol submit
+func HandleSubmit(context *gin.Context) {
+	var data todoRequest
+
+	// fungsinya untuk ambil data dari form dari create.html
+	formName := context.PostForm("nameTodo")
+	formDescription := context.PostForm("descriptionTodo")
+
+	// mengubah data struct supaya diambil dari input form
+	data.Name = formName
+	data.Description = formDescription
+
+	if err := context.ShouldBind(&data); err != nil {
+		context.String(http.StatusBadRequest, "Something went wrong")
+		return
+	}
+
+	todo := models.Todo{}
+	todo.Name = data.Name
+	todo.Description = data.Description
+
+	resultQuery := db.Create(&todo)
+	if resultQuery.Error != nil {
+		context.String(http.StatusBadRequest, "Gagal membuat tugas")
+		return
+	}
+
+	context.HTML(http.StatusCreated, "success.html", gin.H{
+		"titleadd": "Tugas berhasil ditambahkan",
+	})
+}
+
 // GET all todos data
 func GetAllTodos(context *gin.Context) {
 	var todos []models.Todo
@@ -70,12 +102,15 @@ func GetAllTodos(context *gin.Context) {
 
 	// creating GET http response
 	context.HTML(http.StatusOK, "base.html", gin.H{
-
-		// "status":  "200",
-		// "message": "Success",
-		"title": "all todos list",
-		"data":  todos,
+		"message": "Success",
+		"title":   "all todos list",
+		"data":    todos,
 	})
+
+	// testing untuk API
+	// context.JSON(http.StatusOK, gin.H{
+	// 	"data": todos,
+	// })
 }
 
 func UpdateTodo(context *gin.Context) {
