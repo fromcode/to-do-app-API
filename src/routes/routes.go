@@ -9,11 +9,15 @@ import (
 
 func Routes(router *gin.Engine) {
 
+	// tanda ini memisahkan antara ":" sebagai ID dan "/" sebagai directories
+
 	router.GET("/todo", controllers.GetAllTodos)
 	router.GET("/todo/create/form", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "create.html", nil)
 	})
-	router.POST("/todo/create", controllers.HandleSubmit)
+	router.POST("/todo/create/form/success", controllers.HandleCreateSubmit)
+	router.GET("/todo/edit/:idTodo", controllers.GetDataById)
+	router.POST("todo/edit/success")
 
 	ApiRoutes := router.Group("/api")
 	{

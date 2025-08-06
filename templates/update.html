@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ .idtitle }}</h2>
+        <form action="todo/edit/success" method="post">
+            <label for="nameTodo">Name</label><br>
+            <input type="text" name="nameTodoUpdate" id="nameTodoUpdate" placeholder="Silahkan isi untuk mengubah"><br><br>
+            <label for="descriptionTodo">Update Tugas</label><br>
+            <input type="text" name="descTodoUpdate" id="descTodoUpdate" placeholder="Silahkan isi untuk mengubah"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -58,7 +58,7 @@ func CreateTodo(context *gin.Context) {
 }
 
 // handle create.html untuk tombol submit
-func HandleSubmit(context *gin.Context) {
+func HandleCreateSubmit(context *gin.Context) {
 	var data todoRequest
 
 	// fungsinya untuk ambil data dari form dari create.html
@@ -155,6 +155,26 @@ func UpdateTodo(context *gin.Context) {
 
 	// Creating http response
 	context.JSON(http.StatusCreated, response)
+}
+
+func GetDataById(context *gin.Context) {
+	var todo models.Todo
+
+	reqParamById := context.Param("idTodo")
+
+	if err := db.First(&todo, reqParamById).Error; err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "Tugas tidak ditemukan"})
+		return
+	}
+
+	context.HTML(http.StatusOK, "update.html", gin.H{
+		"idtitle":  "Data berhasil ditemukan",
+		"dataById": todo,
+	})
+}
+
+func UpdateTodoById(context *gin.Context) {
+
 }
 
 // Delete todo data function
