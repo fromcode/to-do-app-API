@@ -157,7 +157,7 @@ func UpdateTodo(context *gin.Context) {
 	context.JSON(http.StatusCreated, response)
 }
 
-func GetDataById(context *gin.Context) {
+func GetDataByIdBeforeUpdate(context *gin.Context) {
 	var todo models.Todo
 
 	reqParamById := context.Param("idTodo")

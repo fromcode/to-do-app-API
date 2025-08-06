@@ -16,7 +16,7 @@ func Routes(router *gin.Engine) {
 		context.HTML(http.StatusOK, "create.html", nil)
 	})
 	router.POST("/todo/create/form/success", controllers.HandleCreateSubmit)
-	router.GET("/todo/edit/:idTodo", controllers.GetDataById)
+	router.GET("/todo/edit/:idTodo", controllers.GetDataByIdBeforeUpdate)
 	router.POST("todo/edit/success")
 
 	ApiRoutes := router.Group("/api")
